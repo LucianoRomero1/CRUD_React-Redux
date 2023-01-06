@@ -31,15 +31,24 @@ export const taskSlice = createSlice({
       state.push(action.payload);
       // Este método comentado es para React generalmente [...state, action.payload]
     },
+    editTask: (state, action) => {
+      const { id, title, description } = action.payload;
+
+      const foundTask = state.find((task) => task.id === id);
+      if (foundTask) {
+        foundTask.title = title;
+        foundTask.description = description;
+      }
+    },
     deleteTask: (state, action) => {
-      const taskFound = state.find(task => task.id === action.payload);
-      if(taskFound){
+      const taskFound = state.find((task) => task.id === action.payload);
+      if (taskFound) {
         state.splice(state.indexOf(taskFound), 1);
       }
-    }
+    },
   },
 });
 
-export const { addTask, deleteTask } = taskSlice.actions;
+export const { addTask, editTask, deleteTask } = taskSlice.actions;
 
 export default taskSlice.reducer;
