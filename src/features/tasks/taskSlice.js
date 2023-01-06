@@ -29,11 +29,17 @@ export const taskSlice = createSlice({
       //Action está dividido en 2, type es el tipo en este aso seria tasks/addTask que es el nombre del slice y de la func
       //Y payload es el dato que viene
       state.push(action.payload);
-      // Este método es mas que nada para React solo [...state, action.payload]
+      // Este método comentado es para React generalmente [...state, action.payload]
     },
+    deleteTask: (state, action) => {
+      const taskFound = state.find(task => task.id === action.payload);
+      if(taskFound){
+        state.splice(state.indexOf(taskFound), 1);
+      }
+    }
   },
 });
 
-export const { addTask } = taskSlice.actions;
+export const { addTask, deleteTask } = taskSlice.actions;
 
 export default taskSlice.reducer;
